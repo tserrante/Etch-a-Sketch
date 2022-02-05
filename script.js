@@ -3,7 +3,8 @@ const cols = 32;
 const rows = 32;
 
 
-
+// Clear button resets color grid
+const clearButton = document.querySelector('#clearBtn');
 // From color palette
 const colorPalette = document.querySelector('#palette');
 
@@ -40,3 +41,8 @@ gridItems.forEach((item) => {
 
 
 colorPalette.addEventListener('change', setColor);
+clearButton.addEventListener('click', () => {
+    gridItems.forEach((item) => {
+        item.style.backgroundColor = 'darkgrey';
+    });
+});
