@@ -8,11 +8,20 @@
 </head>
 
 <body>
-    <h1 class="title-banner">Etch-a-Sketch!</h1>
+    <header id="title">
+        <h1 class="title-banner">Etch-a-Sketch!</h1>
+    </header>
 
-    <div class="grid-container"></div>
 
-    <script type="text/javascript" src="script.js"></script>
+    <main class="main">
+        <div class="settings-panel">
+            <input id="palette" class="btn" type="color" value="#000000">
+            <button id="clearBtn" class="btn">Clear</button>
+        </div>
+        <div class="grid-container"></div>
+
+        <script type="text/javascript" src="script.js"></script>
+    </main>
 </body>
 
 </html>
