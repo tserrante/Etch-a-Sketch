@@ -7,11 +7,9 @@ const rows = 32;
 const clearButton = document.querySelector('#clearBtn');
 // From color palette
 const colorPalette = document.querySelector('#palette');
+// eraser
+const eraser = document.querySelector('#eraser');
 
-// sets color variable through event listener
-function setColor(e) {
-    color = e.target.value;
-}
 
 //Color to sketch with. Initially default value of input element
 // is set variably thorugh function paletteColor
@@ -40,9 +38,15 @@ gridItems.forEach((item) => {
 });
 
 
-colorPalette.addEventListener('change', setColor);
+colorPalette.addEventListener('change', (e) => {
+    color = e.target.value;
+});
 clearButton.addEventListener('click', () => {
     gridItems.forEach((item) => {
-        item.style.backgroundColor = 'darkgrey';
+        item.style.backgroundColor = 'white';
     });
+});
+eraser.addEventListener('click', () => {
+    color = 'white';
+    console.log();
 });
