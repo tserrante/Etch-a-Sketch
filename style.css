@@ -56,6 +56,10 @@ body *+* {
     border-radius: 100%;
 }
 
+span {
+    display: inline;
+}
+
 .grid-container {
     display: grid;
     border: 0.5em solid black;
