@@ -1,67 +1,96 @@
-// row x col grid
-const cols = 32;
-const rows = 32;
+const DEFAULT_SIZE = 8;
+const DEFAULT_COLOR = '#000000';
+const DEFAULT_MODE = 'color';
+const DEFAULT_BACKGROUND = '#ffffff';
 
-// dimensions display
-const display = document.querySelector("#display");
-
-//grid dimension slider
-const dims = document.querySelector('#dimensions');
-// get default dimensions of slider
-const defDims = dims.getAttribute('value');
-// display default dimensions
-display.innerText = `${0+Math.pow(2, defDims)} x ${0+Math.pow(2, defDims)}`;
-
-// From color palette
-const colorPalette = document.querySelector('#palette');
-
-// Clear button resets color grid
-const clearButton = document.querySelector('#clearBtn');
-
-// eraser
-const eraser = document.querySelector('#eraser');
+let currentColor = DEFAULT_COLOR;
+let currentMode = DEFAULT_MODE;
+let currentSize = DEFAULT_SIZE;
+let currentBackground = DEFAULT_BACKGROUND;
 
 
-//Color to sketch with. Initially default value of input element
-// is set variably thorugh function paletteColor
-var color = colorPalette.getAttribute('value');
-
-// get grid container and give it a size of rows x cols
-const gridContainer = document.querySelector('.grid-container');
-gridContainer.style.setProperty('--grid-rows', dims.value);
-gridContainer.style.setProperty('--grid-cols', dims.value);
-
-// fill the grid container with grid items
-for (let i = 0; i < (rows * cols); i++) {
-    let gridItem = document.createElement('div'); // create grid item
-    gridContainer.appendChild(gridItem).className = "grid-item"; // set style and add to grid
+function setCurrentColor(newColor) {
+    currentColor = newColor;
 }
 
+function setCurrentMode(newMode) {
+    currentMode = newMode;
+}
 
-const gridItems = document.querySelectorAll('.grid-item');
-gridItems.forEach((item) => {
-    item.addEventListener('mouseover', () => {
-        item.style.backgroundColor = color;
-    });
-});
-
-
-colorPalette.addEventListener('change', (e) => {
-    color = e.target.value;
-});
-clearButton.addEventListener('click', () => {
-    gridItems.forEach((item) => {
-        item.style.backgroundColor = 'white';
-    });
-});
-eraser.addEventListener('click', () => {
-    color = 'white';
-});
-dims.addEventListener('change', (e) => {
+function setCurrentSize(newSize) {
     // increment grid size in powers of 2
-    // from 2^3 -> 2^9
-    let power = e.target.value;
+    // from 2^3 -> 2^7
+    let power = newSize;
     let result = Math.pow(2, power);
     // display above slider
-    display.innerText = `${0+result} x ${0+result}`;
+    currentSize = result;
+}
+
+function setCurrentBackground(newColor) {
+    currentBackground = newColor;
+}
+
+const display = document.querySelector("#slider-display");
+const slider = document.querySelector('#slider');
+const colorPalette = document.querySelector('#palette');
+const backgroundPalette = document.querySelector('#background-palette');
+const clearButton = document.querySelector('#clearBtn');
+const eraser = document.querySelector('#eraser');
+const gridContainer = document.querySelector('.grid-container');
+
+colorPalette.addEventListener('change', e => setCurrentColor(e.target.value));
+backgroundPalette.addEventListener('change', e => changeBackgroundColor(e.target.value));
+clearButton.addEventListener('click', () => {
+    clearGrid();
+    setupGrid(currentSize);
+});
+eraser.addEventListener('click', () => {
+    setCurrentColor('white');
+});
+slider.addEventListener('mousemove', (e) => updateDisplay(e.target.value));
+slider.addEventListener('change', (e) => changeSize(e.target.value));
+
+function setupGrid() {
+    gridContainer.style.setProperty('--grid-rows', currentSize);
+    gridContainer.style.setProperty('--grid-cols', currentSize);
+
+    // fill the grid container with grid items
+    for (let i = 0; i < (currentSize * currentSize); i++) {
+        const gridItem = document.createElement('div'); // create grid item
+        gridItem.addEventListener('mouseover', () => {
+            gridItem.style.backgroundColor = currentColor;
+        });
+        gridItem.className = "grid-item";
+        gridItem.style.setProperty('--background-color', currentBackground);
+        gridContainer.appendChild(gridItem); // set style and add to grid
+
+    }
+}
+
+function clearGrid() {
+    gridContainer.innerHTML = '';
+}
+
+function reloadGrid() {
+    clearGrid();
+    setupGrid(currentSize);
+}
+
+function changeSize(size) {
+    setCurrentSize(size);
+    updateDisplay(size);
+    reloadGrid();
+}
+
+function changeBackgroundColor(color) {
+    setCurrentBackground(color);
+    reloadGrid();
+}
+
+function updateDisplay(size) {
+    display.innerText = `${0+currentSize} x ${0+currentSize}`
+}
+window.addEventListener('load', () => {
+    setupGrid();
+    updateDisplay(currentSize);
 });

@@ -2,6 +2,7 @@
     box-sizing: border-box;
     --grid-cols: 1;
     --grid-rows: 1;
+    --background-color: '#ffffff';
 }
 
 *,
@@ -69,7 +70,7 @@ body *+* {
 }
 
 .grid-item {
-    background-color: white;
+    background-color: var(--background-color);
     margin: 0;
     padding: 0;
 }
