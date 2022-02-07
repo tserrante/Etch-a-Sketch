@@ -19,10 +19,8 @@ function setCurrentMode(newMode) {
 
 function setCurrentSize(newSize) {
     // increment grid size in powers of 2
-    // from 2^4 -> 2^7
     let power = newSize;
     let result = Math.pow(2, power);
-    // display above slider
     currentSize = result;
 }
 
@@ -33,25 +31,22 @@ function setCurrentBackground(newColor) {
 const display = document.querySelector("#slider-display");
 const slider = document.querySelector('#slider');
 const colorPalette = document.querySelector('#palette');
-const colorButton = document.querySelector('#palette-select');
 const backgroundPalette = document.querySelector('#background-palette');
-const backgroundButton = document.querySelector('#background-select');
 const rainbowColor = document.querySelector('#rainbow');
-const clearButton = document.querySelector('#clearBtn');
 const eraser = document.querySelector('#eraser');
-const gridContainer = document.querySelector('.grid-container');
+const clearButton = document.querySelector('#clearBtn');
 
-colorPalette.addEventListener('change', e => setCurrentColor(e.target.value));
-colorButton.addEventListener('click', () => setCurrentMode('color'));
-backgroundPalette.addEventListener('change', e => changeBackgroundColor(e.target.value));
-rainbowColor.addEventListener('click', () => setCurrentMode('rainbow'));
-clearButton.addEventListener('click', () => {
-    clearGrid();
-    setupGrid(currentSize);
-});
-eraser.addEventListener('click', () => setCurrentMode('eraser'));
 slider.addEventListener('mousemove', (e) => updateDisplay(e.target.value));
 slider.addEventListener('change', (e) => changeSize(e.target.value));
+colorPalette.addEventListener('change', e => setCurrentColor(e.target.value));
+colorPalette.addEventListener('click', () => setCurrentMode('color'));
+backgroundPalette.addEventListener('change', e => changeBackgroundColor(e.target.value));
+rainbowColor.addEventListener('click', () => setCurrentMode('rainbow'));
+eraser.addEventListener('click', () => setCurrentMode('eraser'));
+clearButton.addEventListener('click', () => reloadGrid());
+
+
+const gridContainer = document.querySelector('.grid-container');
 
 function setupGrid() {
     gridContainer.style.setProperty('--grid-rows', currentSize);
@@ -64,7 +59,6 @@ function setupGrid() {
         gridItem.className = "grid-item";
         gridItem.style.setProperty('--background-color', currentBackground);
         gridContainer.appendChild(gridItem); // set style and add to grid
-
     }
 }
 
@@ -92,7 +86,6 @@ function updateDisplay(size) {
     display.innerText = `${0+currentSize} x ${0+currentSize}`
 }
 
-
 function changeColor(e) {
     if (currentMode === 'rainbow') {
         const randomR = Math.floor(Math.random() * 256);
@@ -107,11 +100,6 @@ function changeColor(e) {
     if (currentMode === 'eraser') {
         e.target.style.backgroundColor = currentBackground;
     }
-}
-
-function calcRainbowColor() {
-
-    return rainbowValue;
 }
 
 window.addEventListener('load', () => {
