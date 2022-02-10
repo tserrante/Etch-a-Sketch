@@ -58,6 +58,7 @@ function setupGrid() {
         gridItem.addEventListener('mouseover', (e) => changeColor(e));
         gridItem.className = "grid-item";
         gridItem.style.setProperty('--background-color', currentBackground);
+        //gridItem.style.borderRadius = '100%';
         gridContainer.appendChild(gridItem); // set style and add to grid
     }
 }
