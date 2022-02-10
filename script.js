@@ -20,8 +20,7 @@ function setCurrentMode(newMode) {
 function setCurrentSize(newSize) {
     // increment grid size in powers of 2
     let power = newSize;
-    let result = Math.pow(2, power);
-    currentSize = result;
+    currentSize = Math.pow(2, power);
 }
 
 function setCurrentBackground(newColor) {
@@ -43,7 +42,11 @@ colorPalette.addEventListener('click', () => setCurrentMode('color'));
 backgroundPalette.addEventListener('change', e => changeBackgroundColor(e.target.value));
 rainbowColor.addEventListener('click', () => setCurrentMode('rainbow'));
 eraser.addEventListener('click', () => setCurrentMode('eraser'));
-clearButton.addEventListener('click', () => reloadGrid());
+
+clearButton.addEventListener('click', () => {
+    clearGrid();
+    reloadGrid();
+});
 
 
 const gridContainer = document.querySelector('.grid-container');
@@ -51,13 +54,13 @@ const gridContainer = document.querySelector('.grid-container');
 function setupGrid() {
     gridContainer.style.setProperty('--grid-rows', currentSize);
     gridContainer.style.setProperty('--grid-cols', currentSize);
-
+    gridContainer.style.setProperty('--background-color', currentBackground);
     // fill the grid container with grid items
     for (let i = 0; i < (currentSize * currentSize); i++) {
         const gridItem = document.createElement('div'); // create grid item
+        gridItem.classList.add("grid-item");
         gridItem.addEventListener('mouseover', (e) => changeColor(e));
-        gridItem.className = "grid-item";
-        gridItem.style.setProperty('--background-color', currentBackground);
+        //gridItem.style.setProperty('--background-color', currentBackground);
         //gridItem.style.borderRadius = '100%';
         gridContainer.appendChild(gridItem); // set style and add to grid
     }
@@ -68,13 +71,14 @@ function clearGrid() {
 }
 
 function reloadGrid() {
-    clearGrid();
+    //clearGrid();
     setupGrid(currentSize);
 }
 
 function changeSize(size) {
     setCurrentSize(size);
     updateDisplay(size);
+    clearGrid();
     reloadGrid();
 }
 
@@ -88,20 +92,29 @@ function updateDisplay(size) {
 }
 
 function changeColor(e) {
+
+    e.target.classList.remove("grid-item");
+    e.target.classList.add("active-grid-item");
     if (currentMode === 'rainbow') {
         const randomR = Math.floor(Math.random() * 256);
         const randomG = Math.floor(Math.random() * 256);
         const randomB = Math.floor(Math.random() * 256);
-        e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
-
+        //e.target.style.backgroundColor = `rgb(${randomR}, ${randomG}, ${randomB})`;
+        e.target.style.setProperty('--grid-item-color', `rgb(${randomR}, ${randomG}, ${randomB})`);
     }
     if (currentMode === 'color') {
-        e.target.style.backgroundColor = currentColor;
+        //e.target.style.backgroundColor = currentColor;
+        e.target.style.setProperty('--grid-item-color', currentColor);
+
     }
     if (currentMode === 'eraser') {
-        e.target.style.backgroundColor = currentBackground;
+        //e.target.style.backgroundColor = currentBackground;
+        e.target.style.setProperty('--grid-item-color', currentBackground);
+
     }
 }
+
+
 
 window.addEventListener('load', () => {
     setupGrid();
