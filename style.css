@@ -3,6 +3,7 @@
     --grid-cols: 1;
     --grid-rows: 1;
     --background-color: '#ffffff';
+    --grid-item-color: '#ffffff'
 }
 
 *,
@@ -25,56 +26,73 @@ body *+* {
 
 .main {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    max-width: 1100px;
     margin: 0 auto;
-    gap: 3em;
+    gap: 1em;
+    max-width: 1080px;
 }
 
 .settings-panel {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
+    gap: 1.5em;
 }
 
+.labels {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    height: fit-content;
+    margin: 0;
+    padding: 0;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+}
+
+#slider {
+    margin: 0;
+}
+
+.label,
+#slider,
+.palette,
 .btn {
-    width: 5em;
-}
-
-#display {
-    width: fit-content;
-    text-align: center;
-}
-
-#dimensions {
-    width: fit-content;
-}
-
-#palette {
-    border-radius: 100%;
-}
-
-span {
-    display: inline;
+    height: 1.5em;
+    width: auto;
 }
 
 .grid-container {
+    justify-self: center;
     display: grid;
-    border: 0.5em solid black;
+    border: 2px solid black;
     grid-template-rows: repeat(var(--grid-rows), 1fr);
     grid-template-columns: repeat(var(--grid-cols), 1fr);
+    background-color: var(--background-color);
     padding: 0;
     gap: 0;
     margin: 0;
-    margin-right: 8.3em;
-    width: 500px;
-    height: 500px;
+    width: 600px;
+    height: 600px;
 }
 
 .grid-item {
-    background-color: var(--background-color);
+    background-color: transparent;
     margin: 0;
     padding: 0;
+    border: 0;
+}
+
+.active-grid-item {
+    background-color: var(--grid-item-color);
+    margin: 0;
+    padding: 0;
+    border: 0;
 }

@@ -15,14 +15,19 @@
 
     <main class="main">
         <div class="settings-panel">
-            <span id="slider-display" class="btn">0 x 0</span>
-            <input id="slider" class="btn" type="range" value="4" min="4" max="7">
-            <input id="palette" class="btn" type="color" value="#000000">
-            <input id="background-palette" type="color" class="btn" value="#ffffff">
-            <button id="rainbow" class="btn">Rainbow</button>
-            <button id="eraser" class="btn">Eraser</button>
-            <button id="clearBtn" class="btn">Clear</button>
-
+            <div class="labels">
+                <span id="slider-display" class="label">0 x 0</span>
+                <span id="palette-display" class="label">Brush</span>
+                <span id="background-display" class="label">Background</span>
+            </div>
+            <div class="buttons">
+                <input id="slider" type="range" value="4" min="4" max="7">
+                <input id="palette" class="palette" type="color" value="#000000">
+                <input id="background-palette" class="palette" type="color" value="#ffffff">
+                <button id="rainbow" class="btn">Rainbow</button>
+                <button id="eraser" class="btn">Eraser</button>
+                <button id="clearBtn" class="btn">Clear</button>
+            </div>
 
         </div>
         <div class="grid-container"></div>
