@@ -7,4 +7,3 @@ To-Do
 - Add CSS styles for appearance
 - Save feature that saves sketch as .png, .jpg/.jpeg, etc...
 - Make a brush button that saves the color from the palette
-- Test
