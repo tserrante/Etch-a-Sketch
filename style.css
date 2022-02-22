@@ -13,23 +13,34 @@
     font-size: 16px;
 }
 
+body{    
+    background-color: #2d34361c;
+    margin:0;
+}
+
 body *+* {
     margin-top: 1em;
 }
 
+
 .title-banner {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: auto;
+    height: 1.5em;
     font-size: 4em;
-    width: fit-content;
-    margin: 1em auto;
+    text-align: center;
+    margin: 0 auto;
+    background-color: #74cab8 ;
 }
 
 .main {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    margin: 0 auto;
-    gap: 1em;
+    margin: 5em auto;
+    gap: 0.5em;
     max-width: 1080px;
 }
 
@@ -38,6 +49,9 @@ body *+* {
     align-items: flex-start;
     justify-content: center;
     gap: 1.5em;
+    height: 600px;
+    padding: 1em;
+    background-color: #74cab8;
 }
 
 .labels {
@@ -46,6 +60,7 @@ body *+* {
     align-items: flex-end;
     height: fit-content;
     margin: 0;
+    margin-top: 1em;
     padding: 0;
 }
 
@@ -54,11 +69,17 @@ body *+* {
     flex-direction: column;
     justify-content: center;
     margin: 0;
+    margin-top: 1em;
     padding: 0;
 }
 
 #slider {
     margin: 0;
+    height: 2em;
+}
+
+#slider:hover{
+    opacity: 0.5;
 }
 
 .label,
@@ -67,6 +88,20 @@ body *+* {
 .btn {
     height: 1.5em;
     width: auto;
+    margin-top: 1em;
+}
+
+
+
+.btn{
+    background-color: transparent;
+    border: 0.1875em solid black;
+    padding: 1em;
+    height: auto;
+}
+
+.btn:hover{
+    opacity: .5;
 }
 
 .grid-container {
